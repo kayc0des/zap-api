@@ -6,7 +6,7 @@ books = [
     {"title": "The Subtle Art of Not Giving a Fuck", "author": "Mark Manson", "category": "Self Help"},
     {"title": "Adventures in Human Being", "author": "Gavin Francis", "category": "Biology"},
     {"title": "The Dairy of a CEO", "author": "Steven Barlett", "category": "Business"},
-    {"title": "The Minmalist Entrepreneur", "author": "Sahil Lavingia", "category": "Business"},
+    {"title": "The Minimalist Entrepreneur", "author": "Sahil Lavingia", "category": "Business"},
     {"title": "Atomic Habits", "author": "James Clear", "category": "Self Help"},
     {"title": "Good Habits", "author": "James Clear", "category": "Self Help"}
 ]
@@ -15,6 +15,8 @@ books = [
 async def get_all_books():
     return books
 
-@app.get("/books/{index_num}")
-async def get_book(index_num):
-    return books[int(index_num)]
+@app.get("/books/{book_title}")
+async def get_book(book_title: str):
+    for book in books:
+        if book.get('title').casefold() == book_title.casefold():
+            return book

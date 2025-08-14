@@ -12,10 +12,23 @@ class BookRequest(BaseModel):
     author: str = Field(min_length=1)
     description: str = Field(min_length=1, max_length=100)
     rating: int = Field(gt=0, lt=6)
+    
+    class Config:
+        json_schema_extra = {
+            'example': {
+                'title': 'A new book',
+                'author': 'Kingsley Budu Boafo',
+                'description': 'A new description of a book',
+                'rating': 5
+            }
+        }
 
 # APIs
 @app.get("/books")
 async def get_all_books(): 
+    '''
+    Returns all books from the list db
+    '''
     return Books
 
 @app.post("/create_book")

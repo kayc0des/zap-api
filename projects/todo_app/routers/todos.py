@@ -5,14 +5,10 @@ from database import SessionLocal
 from typing import Annotated
 from starlette import status
 from pydantic import BaseModel, Field
+from api_models import TodoRequest
 
 router = APIRouter()
 
-class TodoRequest(BaseModel):
-    title: str = Field(min_length=3, max_length=100)
-    description: str = Field(min_length=3, max_length=250)
-    priority: int = Field(gt=0, lt=6)
-    complete: bool = False
 
 def get_db():
     db = SessionLocal()
